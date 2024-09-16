@@ -5,15 +5,23 @@ dotenv.config();
 
 const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, { polling: true });
 
+const imageUrl = 'https://media.licdn.com/dms/image/v2/D4D0BAQHALE-SdnYkLg/company-logo_200_200/company-logo_200_200/0/1685895016054/longevityintime_logo?e=1734566400&v=beta&t=hv2KmOVPsDAwYM73uj1jLHXrpfPmBysp-Qrt2TQTkp0';
+
 // Start command
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
-  bot.sendMessage(chatId, 'What can this bot do?\n\nIt’s time to earn money on your bio data & health!\nSwitch boring health tracking into fun & money!\n\nBoost your health. Upgrade your life. Get free seconds of your life. Earn more. Get hours of life. Convert them into years. Exchange your years of your life into fiat money on the top crypto exchanges.\n\nStage One:\n\nGet health incentives, get recommendations how to upgrade your health & life, invite like-minded friends and become millionaires by the hours of life. Make money on your health data! You want more?\n\nStage Two:\n\nUpload your bio data to unlock the next level of your benefits based on your active lifespan. Get a longevity NFT collection. Become an equity holder of Longevity InTime.\n\nStage Three:\n\nNot enough, become a part of the professional longevity community, who don’t want to die & save your loved ones, yourself & the world!\n\nStage Four:\n\nAirDrop. Listing. Profit.', {
-    reply_markup: {
-      keyboard: [['Play', 'Stages'], ['Explanation', 'About']],
-      resize_keyboard: true
-    }
-  });
+  bot.sendPhoto(chatId, imageUrl, { caption: 'Welcome to the Tap to Earn & Live Longer Mini App!' })
+    .then(() => {
+      bot.sendMessage(chatId, 'What can this bot do?\n\nIt’s time to earn money on your bio data & health!\nSwitch boring health tracking into fun & money!\n\nBoost your health. Upgrade your life. Get free seconds of your life. Earn more. Get hours of life. Convert them into years. Exchange your years of your life into fiat money on the top crypto exchanges.\n\nStage One:\n\nGet health incentives, get recommendations how to upgrade your health & life, invite like-minded friends and become millionaires by the hours of life. Make money on your health data! You want more?\n\nStage Two:\n\nUpload your bio data to unlock the next level of your benefits based on your active lifespan. Get a longevity NFT collection. Become an equity holder of Longevity InTime.\n\nStage Three:\n\nNot enough, become a part of the professional longevity community, who don’t want to die & save your loved ones, yourself & the world!\n\nStage Four:\n\nAirDrop. Listing. Profit.', {
+        reply_markup: {
+        keyboard: [['Play', 'Stages'], ['Explanation', 'About']],
+        resize_keyboard: true
+        }
+      });
+    })
+    .catch((error) => {
+      console.error('Error sending image:', error);
+    });
 });
 
 // Handling Play Button
